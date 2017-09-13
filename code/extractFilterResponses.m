@@ -15,16 +15,16 @@ img = double(img);
 [l,a,b] = RGB2Lab(img(:,:,1),img(:,:,2),img(:,:,3));
 imgLab = cat(3,l,a,b);
 for bank = 1:size(filterBank,1)
-    conv = imfilter(imgLab,filterBank{bank});
+    conv = imfilter(imgLab,filterBank{bank},'replicate');
     
     if bank == 1
         filterResponses = conv;
-%        mont = conv;
+        mont = conv;
     else
         filterResponses = cat(3,filterResponses,conv);
-%        mont  = cat(4,mont,conv);
+        mont  = cat(4,mont,conv);
     end
 end
-%montage(mont,'Size',[4 5]) % to get a montage 
+montage(mont,'Size',[4 5]) % to get a montage 
 end
 
