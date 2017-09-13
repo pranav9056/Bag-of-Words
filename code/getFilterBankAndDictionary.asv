@@ -9,17 +9,16 @@ function [filterBank, dictionary] = getFilterBankAndDictionary(imPaths)
     
     alpha = 100; % sampling rate/image
     filterBank  = createFilterBank();
-    featureLength = 3*size(filterBank,1);
-    disp(featureLength)
-    for path = 1:size(imPaths,1)
-        img = imread(imPaths{path});
+    featureLength = size(filterBank,3);
+    for path = imPaths
+        img = imread(path);
         filterResponses = extractFilterResponses(img,filterBank);
         rowVal = size(img,1);
         colVal = size(img,2);
         row = randperm(rowVal,alpha);
         col = randperm(colVal,alpha);
         for i = 1:alpha
-            temp = filterResponses(row(i),col(i),:);
+            temp = filterResponses(row(i),col(j),:);
             temp = reshape(temp,[1,featureLength]);
             if exist('features','var')
                 features = cat(1,features,temp);
@@ -31,8 +30,5 @@ function [filterBank, dictionary] = getFilterBankAndDictionary(imPaths)
         
     end
     % TODO Implement your code here
-    k = 150;
-    [idx,dictionary] = kmeans(features,k,'EmptyAction','drop');
-    dictionary = dictionary';
 
 end

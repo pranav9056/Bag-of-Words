@@ -6,7 +6,7 @@ function computeDictionary()
 
 	interval= 1;
 	train_imagenames = train_imagenames(1:interval:end);
-	[filterBank,dictionary] = getFilterBankAndDictionary(strcat(['../data/'],train_imagenames));
+	[filterBank,dictionary] = getFilterBankAndDictionary(strcat(['..\data\'],train_imagenames));
 
 	save('dictionary.mat','filterBank','dictionary'); 
 
