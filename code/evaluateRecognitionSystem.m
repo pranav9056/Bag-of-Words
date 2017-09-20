@@ -3,7 +3,26 @@ function [conf] = evaluateRecognitionSystem()
 
 	load('vision.mat');
 	load('../data/traintest.mat');
+    conf = zeros(8,8);
+    target ='../data/';
+    for i = 1:size(test_imagenames,1)
+        imPath = [target,test_imagenames{i}];
+        imPath1 = strrep(imPath,'.jpg','.mat');
+        if exist([target,imPath1],'file')
+            load([target,imPath1]);
+        else
+            image = im2double(imread(imPath));
+            wordMap = getVisualWords(image, filterBank, dictionary);
+        end
+        h = getImageFeaturesSPM(3, wordMap, size(dictionary,2));
+        distances = distanceToSet(h, train_features);
+        [~,nnI] = max(distances);
+        conf(test_labels(i),train_labels(nnI)) =  conf(test_labels(i),train_labels(nnI))+1;
 
+
+        
+
+    end
 	% TODO Implement your code here
 
 end
