@@ -57,7 +57,7 @@ function [h] = getImageFeaturesSPM(layerNum, wordMap, dictionarySize)
             end
         end
         
-    end 
+    end
     
     
 

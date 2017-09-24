@@ -8,8 +8,8 @@ function [conf] = evaluateRecognitionSystem()
     for i = 1:size(test_imagenames,1)
         imPath = [target,test_imagenames{i}];
         imPath1 = strrep(imPath,'.jpg','.mat');
-        if exist([target,imPath1],'file')
-            load([target,imPath1]);
+        if exist(imPath1,'file')
+            load(imPath1);
         else
             image = im2double(imread(imPath));
             wordMap = getVisualWords(image, filterBank, dictionary);
@@ -19,10 +19,10 @@ function [conf] = evaluateRecognitionSystem()
         [~,nnI] = max(distances);
         conf(test_labels(i),train_labels(nnI)) =  conf(test_labels(i),train_labels(nnI))+1;
 
-
         
 
     end
+
 	% TODO Implement your code here
 
 end
