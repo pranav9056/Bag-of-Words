@@ -5,8 +5,13 @@ function buildRecognitionSystem()
 	load('../data/traintest.mat');
     for i = 1:size(train_imagenames,1)
         imPath = train_imagenames{i};
-        imPath = ['../data/',strrep(imPath,'.jpg','.mat')];
-        load(imPath);
+        imPath1 = ['../data/',strrep(imPath,'.jpg','.mat')];
+        if exist(imPath1,'file')
+            load(imPath1);
+        else
+            image = imread(['../data/',imPath]);
+            wordMap = getVisualWords(image, filterBank, dictionary);
+        end
         if i == 1
             train_features = getImageFeaturesSPM(3,wordMap,size(dictionary,2));
         else

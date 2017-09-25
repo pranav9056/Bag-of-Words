@@ -11,7 +11,7 @@ function [conf] = evaluateRecognitionSystem()
         if exist(imPath1,'file')
             load(imPath1);
         else
-            image = im2double(imread(imPath));
+            image = imread(imPath);
             wordMap = getVisualWords(image, filterBank, dictionary);
         end
         h = getImageFeaturesSPM(3, wordMap, size(dictionary,2));
