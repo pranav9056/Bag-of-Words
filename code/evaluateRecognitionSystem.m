@@ -22,6 +22,9 @@ function [conf] = evaluateRecognitionSystem()
         
 
     end
+    acc = (trace(conf)/sum(conf(:)))*100;
+    fprintf('Accuracy: %f \n',acc);
+
 
 	% TODO Implement your code here
 
